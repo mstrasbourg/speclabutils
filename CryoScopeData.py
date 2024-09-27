@@ -296,7 +296,7 @@ def import_h5_to_dict(h5_file_path):
 					export_dict['measurement'][measurement][group] = np.array(h5['measurement'][measurement][group])
 	except:
 		print('Failed to properly convert .h5 sturcutre to dict')
-		export_dict = none
+		export_dict = None
 	finally:
 		h5.close()
 		return export_dict
