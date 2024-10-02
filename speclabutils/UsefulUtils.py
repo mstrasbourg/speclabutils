@@ -10,6 +10,7 @@ from matplotlib import pyplot as plt
 from matplotlib.ticker import MultipleLocator
 from matplotlib.colors import LinearSegmentedColormap
 from matplotlib.collections import LineCollection
+import matplotlib as mpl
 import warnings
 import re
 from ipywidgets import widgets, interact
@@ -256,7 +257,50 @@ def colored_line(x, y, c, ax, **lc_kwargs):
     lc = LineCollection(segments, **default_kwargs)
     lc.set_array(c)  # set the colors of each segment
 
-    return ax.add_collection(lc)
+    ax.add_collection(lc)
+
+    ax.set_ylim([min(y),max(y)])
+    ax.set_xlim([min(x),max(x)])
+
+    return 
+
+def make_approach_cmap(x, c_in='tab:blue', c_out='tab:orange'):
+	if isinstance(c_in, str):
+		c_in = mpl.colors.to_rgba(c_in)
+
+	if isinstance(c_out, str):
+		c_out = mpl.colors.to_rgba(c_out)
+
+	cdict = {'red': [(0, c_in[0], c_in[0]),
+				     (0.5, c_in[0], c_out[0]),
+				     (1, c_out[0], c_out[0]),
+					 ],
+			'green': [(0, c_in[1], c_in[1]),
+				     (0.5, c_in[1], c_out[1]),
+				     (1, c_out[1], c_out[1]),
+					 ],
+
+			'blue': [(0, c_in[2], c_in[2]),
+				     (0.5, c_in[2], c_out[2]),
+				     (1, c_out[2], c_out[2]),
+					 ],
+
+			'alpha': [(0, c_in[3], c_in[3]),
+				     (0.5, c_in[3], c_out[3]),
+				     (1, c_out[3], c_out[3]),
+					 ],
+			}
+	return mpl.colors.LinearSegmentedColormap('binary', segmentdata=cdict, N=256)
+
+	dx = np.diff(x)
+	c = []
+	for _dx in dx:
+		if _dx < 0:
+			c.append(mpl.colors.to_rgba(c_in))
+		else:
+			c.append(mpl.colors.to_rgba(c_out))
+	return c
+
 
 # This is a bit more of an advanced programming thing for my usage.  I basically 
 # create objects for each data file and use them to keep track of the analysis 
