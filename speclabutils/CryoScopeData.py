@@ -1,8 +1,8 @@
 import numpy as np
 import h5py
 
-from UsefulUtils import Bunch
-import UsefulUtils as uu
+from .UsefulUtils import Bunch
+from . import UsefulUtils as uu
 from matplotlib import pyplot as plt
 
 def load_hydraharp_histogram(filename, **kwargs):

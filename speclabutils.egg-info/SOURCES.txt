@@ -1,0 +1,11 @@
+setup.py
+speclabutils/AistPy.py
+speclabutils/CryoScopeData.py
+speclabutils/UsefulUtils.py
+speclabutils/__init__.py
+speclabutils/doi_lookup.py
+speclabutils.egg-info/PKG-INFO
+speclabutils.egg-info/SOURCES.txt
+speclabutils.egg-info/dependency_links.txt
+speclabutils.egg-info/requires.txt
+speclabutils.egg-info/top_level.txt

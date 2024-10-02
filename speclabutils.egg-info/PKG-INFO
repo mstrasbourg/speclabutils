@@ -1,0 +1,9 @@
+Metadata-Version: 2.1
+Name: speclabutils
+Version: 1.0
+Summary: A useful module
+Author: MCS, NJB; Users of the Borys and Schuck labs
+Author-email: strasbourg.matt@gmail.com
+Requires-Dist: numpy
+Requires-Dist: h5py
+Requires-Dist: matplotlib
