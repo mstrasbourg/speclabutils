@@ -1,10 +1,10 @@
 import numpy as np
-from UsefulUtils import Bunch
+from .UsefulUtils import Bunch
 import csv
 from pathlib import Path
 # Function that import data from text files
 
-def loadtxt_2D(fname, signal='Height(sen)'):
+def loadtxt_2D(fname, signal='Height(sen)', name=None):
     """Loads a 2D map that was exported to text from the AIST software.
 
     Parameters
@@ -47,7 +47,12 @@ def loadtxt_2D(fname, signal='Height(sen)'):
         B.extent_olower = [x0, x0 + xs, y0, y0 + ys]
         B.xlocs = np.linspace(x0, x0 + xs, int(B.XPoints))
         B.ylocs = np.linspace(y0, y0 + ys, int(B.YPoints))
-        B.scan_num = int(B.FileName.split(' ')[1])
+
+        if name is None:
+            try:
+                B.name = int(B.FileName.split(' ')[1])
+            except:
+                B.name = name
         
     return B
 
