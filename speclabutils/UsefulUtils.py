@@ -301,6 +301,29 @@ def make_approach_cmap(x, c_in='tab:blue', c_out='tab:orange'):
 			c.append(mpl.colors.to_rgba(c_out))
 	return c
 
+def patch_mask(data, extent_olower, patch):
+    xps = np.linspace(extent_olower[0], extent_olower[1], data.shape[0])
+    yps = np.linspace(extent_olower[2], extent_olower[3], data.shape[1])
+
+    xx, yy = np.meshgrid(xps, yps)
+    points = np.array([xx.ravel(), yy.ravel()]).T
+    m = []
+    t =  patch.get_data_transform().transform
+    for p in points:
+        m.append(patch.contains_point(t(p)))
+
+    m = np.array(m)
+    m = m.reshape(xx.shape)
+    m = np.logical_not(m)
+
+    return np.ma.masked_array(data, mask=m), m
+
+def add_scalbar(ax, rect_kwargs=None, font_kwargs=None, auto_size=True, disable_ticks=True, ):
+	"""Add a  scale bar to the axis."""
+	trans = ax.transData
+	sb = rect()
+	return
+
 
 # This is a bit more of an advanced programming thing for my usage.  I basically 
 # create objects for each data file and use them to keep track of the analysis 
